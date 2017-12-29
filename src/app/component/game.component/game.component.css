@@ -1,0 +1,49 @@
+.main {
+  background: #ddd;
+}
+
+.flex-row {
+  height: 40px;
+  display: flex;
+  position: relative;
+  top: -80px;
+}
+
+.f1 {
+  flex: 1;
+  background: #ddd;
+}
+
+.fw {
+  width: 100%;
+}
+
+.dark {
+  background: #ccc;
+  border: 0.2px solid #fff;
+}
+
+.light {
+  background: #eee;
+}
+
+.clear {
+  background: #fff;
+  border: 0.2px solid #666;
+}
+
+.gameover::after {
+  content: "GAME OVER";
+  display: block;
+  box-sizing: border-box;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 3em;
+  width: 100%;
+  height: 100%;
+  padding-top: 40%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+}

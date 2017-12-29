@@ -1,0 +1,16 @@
+.page {
+  overflow: hidden;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+}
+
+game {
+  width: 400px;
+  margin-right: 10px;
+}
+
+score {
+  width: 100px;
+  height: 100px;
+}

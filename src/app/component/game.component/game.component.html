@@ -1,0 +1,6 @@
+<div class="main" [ngClass]="{'gameover':gameOver()}">
+  <div *ngFor="let item of items" class="flex-row fw">
+    <div *ngFor="let subItem of item" class="f1" [ngClass]="{'dark':subItem,'light':!subItem,'clear':subItem==10}">
+    </div>
+  </div>
+</div>
