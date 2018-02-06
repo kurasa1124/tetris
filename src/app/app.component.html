@@ -1,4 +1,4 @@
 <div class="page">
-  <game></game>
-  <score></score>
+  <game (score)="addScore($event)"></game>
+  <score [score]="score"></score>
 </div>
