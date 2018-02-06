@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'score',
@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class score implements OnInit {
 
   constructor() { }
+
+  @Input() score: number = 0;
 
   ngOnInit() {
   }

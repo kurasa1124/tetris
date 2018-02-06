@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IBlock } from '../allBlock/iBlock.class';
 import { TBlock } from '../allBlock/tBlock.class';
 import { Square } from '../allBlock/square.class';
-
-
-
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -239,94 +236,6 @@ export class game implements OnInit {
     return true;
   }
 
-  // T型旋轉
-  // public tBlockRotate() {
-  //   switch (this.rotate) {
-  //     case 0:
-  //       for (let y = 0; y <= 20; y++) {
-  //         for (let x = 0; x <= 9; x++) {
-  //           if (this.items[y][x] === -1 && this.items[y][x + 1] === -1 && this.items[y][x + 2] === -1) {
-  //             this.items[y - 1][x + 1] = -1;
-  //             this.items[y][x + 2] = 0;
-  //             this.rotate = 1;
-  //           }
-  //         }
-  //       }
-  //       break;
-  //     case 1:
-  //       for (let y = 0; y <= 20; y++) {
-  //         for (let x = 0; x <= 9; x++) {
-  //           if (this.items[y][x] === -1 && this.items[y][x + 1] === -1 && this.items[y + 1][x + 1] === -1 && this.items[y][x + 2] === 0) {
-  //             this.items[y + 1][x + 1] = 0;
-  //             this.items[y][x + 2] = -1;
-  //             this.rotate = 2;
-  //           }
-  //         }
-  //       }
-  //       break;
-  //     case 2:
-  //       for (let y = 0; y <= 20; y++) {
-  //         for (let x = 0; x <= 9; x++) {
-  //           if (this.items[y][x] === -1 && this.items[y - 1][x + 1] === -1 && this.items[y][x + 1] === -1 && this.items[y][x + 2] === -1) {
-  //             this.items[y][x] = 0;
-  //             this.items[y + 1][x + 1] = -1;
-  //             this.rotate = 3;
-  //           }
-  //         }
-  //       }
-  //       break;
-  //     case 3:
-  //       for (let y = 0; y <= 20; y++) {
-  //         for (let x = 0; x <= 9; x++) {
-  //           // tslint:disable-next-line:max-line-length
-  //           if (this.items[y + 1][x] === 0 && this.items[y][x + 1] === -1 && this.items[y + 1][x + 1] === -1 && this.items[y + 2][x + 1] === -1 && this.items[y + 1][x + 2] === -1) {
-  //             this.items[y + 1][x] = -1;
-  //             this.items[y][x + 1] = 0;
-  //             this.rotate = 0;
-  //           }
-  //         }
-  //       }
-  //       break;
-  //   }
-  // }
-  // I型旋轉
-  // public iBlockRotate() {
-  //   switch (this.rotate) {
-  //     case 0:
-  //       for (let y = 0; y <= 20; y++) {
-  //         for (let x = 0; x <= 9; x++) {
-  //           // tslint:disable-next-line:max-line-length
-  //           if (this.items[y][x] === -1 && this.items[y][x + 3] === -1 && this.items[y + 1][x] === 0 && this.items[y + 2][x] === 0 && this.items[y + 3][x] === 0) {
-  //             this.items[y][x + 1] = 0;
-  //             this.items[y][x + 2] = 0;
-  //             this.items[y][x + 3] = 0;
-  //             this.items[y + 1][x] = -1;
-  //             this.items[y + 2][x] = -1;
-  //             this.items[y + 3][x] = -1;
-  //             this.rotate = 1;
-  //           }
-  //         }
-  //       }
-  //       break;
-  //     case 1:
-  //       for (let y = 0; y <= 20; y++) {
-  //         for (let x = 0; x <= 9; x++) {
-  //           // tslint:disable-next-line:max-line-length
-  //           if (this.items[y][x] === -1 && this.items[y + 1][x] === -1 && this.items[y][x + 1] === 0 && this.items[y][x + 2] === 0 && this.items[y][x + 3] === 0) {
-  //             this.items[y][x + 1] = -1;
-  //             this.items[y][x + 2] = -1;
-  //             this.items[y][x + 3] = -1;
-  //             this.items[y + 1][x] = 0;
-  //             this.items[y + 2][x] = 0;
-  //             this.items[y + 3][x] = 0;
-  //             this.rotate = 0;
-  //           }
-  //         }
-  //       }
-  //       break;
-  //   }
-  // }
-  // L型旋轉
   public lBlockRotate() {
     switch (this.rotate) {
       case 0:
@@ -556,6 +465,10 @@ export class game implements OnInit {
     });
   }
 
+  //消除後加分
+  @Output() score = new EventEmitter<number>();
+
+
   // 消除變色區域
   public async clear() {
     this.changeColor();
@@ -564,6 +477,7 @@ export class game implements OnInit {
       const clearY = '10,10,10,10,10,10,10,10,10,10';
       if (this.items[y].join(',') === clearY) {
         this.items[y] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.score.next(50);
       }
       this.clearDown();
     }
@@ -581,9 +495,11 @@ export class game implements OnInit {
           }
         }
       }
-
     }
   }
+
+
+
 
   // 判斷結束
   public gameOver() {
@@ -603,6 +519,7 @@ export class game implements OnInit {
 
 
   ngOnInit() {
+    this.score.subscribe(e => { console.log(e) });
   }
 
 }
